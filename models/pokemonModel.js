@@ -8,9 +8,13 @@ const pokemonSchema = new mongoose.Schema({
         required: [true, 'obligation nom pokemon'],
         unique: true
     },
-    type: {
-        type: String,
+    types: {
+        type:[String],
         required: [true, 'obligation du type']
+    },
+    picture:{
+        type:String,
+        required: [true, 'L\'URL de l\'image est obligatoire']
     },
 
     createdAt: {

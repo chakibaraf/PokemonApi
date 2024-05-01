@@ -16,6 +16,7 @@ router
     .post(pokemonController.uptdatePokemon)
     .delete(pokemonController.deletePokemon)
 
-
+router.route("/:types")
+.get(pokemonController.getFiltre)
 
     module.exports = router ;

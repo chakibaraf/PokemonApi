@@ -68,6 +68,35 @@ exports.createPokemon=  async (req, res) => {
     }
 }
 
+exports.getFiltre = async (req, res) => {
+    try {
+        const typeRecherche = req.query.types; // Récupérer le type de Pokémon à partir des paramètres de requête
+        if (!typeRecherche) {
+            return res.status(400).json({ message: "Type de Pokémon manquant dans les paramètres de requête" });
+        }
+
+        const typePokemon = await Pokemon.find({ types: typeRecherche });
+        console.log(typePokemon);
+
+        if (typePokemon.length === 0) {
+            return res.status(404).json({ message: "Aucun Pokémon de ce type trouvé" });
+        }
+
+        res.status(200).json({
+            message: "Pokémon filtré",
+            data: {
+                typePokemon
+            }
+        });
+    } catch (error) {
+        res.status(400).json({
+            status: 'fail',
+            message: error.message
+        });
+    }
+}
+
+
 exports.uptdatePokemon = async(req,res) =>{
         try {
             const updt = await Pokemon.findByIdAndUpdate(req.params.id, req.body,{
