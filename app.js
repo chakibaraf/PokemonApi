@@ -1,37 +1,36 @@
 
-const bodyparser = require('body-parser')
+
 const morgan = require('morgan')
 const express = require('express');
-const PORT = 3000;
+
 const app = express();
 
-let pokemons = require('./models/pokemon')
+ 
+app.use(morgan('dev'))
+
+
+
+
+const pokemonRouter = require('./routes/pokemonRoute');
+
+// nom de la base de donnée
+
+
+
+// db connect
+
 
 
 // middlewear 
 app.use(express.json());
-app.use(morgan('dev'));
+/*
+app
+    .use(favicon(__dirname + '/favicon.ico'))
+    .use(morgan('dev'));
 
+*/
 //routes
-app.get('/', (req, res) => {
+app.use("/api/pokemons",pokemonRouter)
 
-    res.send("hello les amis")
-})
 
-app.get('/api/pokemon', (req, res) => {
-    res.send("hello les pokemon")
-})
-
-app.get('/api/pokemon/:id', (req, res) => {
-   // const id = req.params.id * 1
-    const id = parseInt(req.params.id);
-    const pokemon = pokemons.find(el => el.id === id);
-    res.send(`voici mon pokemon n ${pokemon.name} `)
-})
-
-//server
-app.listen(PORT, () => {
-    console.log(`le server est allume sur le ${PORT}`)
-})
-
-console.log('hello #️⃣')
+module.exports = app;
