@@ -4,13 +4,22 @@ const Pokemon = require('../models/pokemonModel')
 
 exports.getAllPokemon = async (req, res) => {
     try {
-
-        const allPokemons = await Pokemon.find();
+            let query = {};
+            let message;
+            if (req.query.types){
+                query.types = req.query.types;
+              
+              message = `liste des pokemon de type  ${query.types} `;
+                
+            } else {
+               message = 'liste de tous les pokemons'
+            }
+        const allPokemons = await Pokemon.find(query);
         console.log(allPokemons)
 
         res.status(200).json({
             status: 'success',
-            message: "la liste des pokemon complete",
+           message,
             data: {
                 allPokemons
             }
@@ -68,10 +77,10 @@ exports.createPokemon=  async (req, res) => {
     }
 }
 
-exports.getFiltre = async (req, res) => {
+/*exports.getFiltre = async (req, res) => {
     try {
         const typeRecherche = req.query.types; // Récupérer le type de Pokémon à partir des paramètres de requête
-        if (!typeRecherche) {
+        if (!typeRecherche ||typeRecherche.trim() === '') {
             return res.status(400).json({ message: "Type de Pokémon manquant dans les paramètres de requête" });
         }
 
@@ -96,7 +105,7 @@ exports.getFiltre = async (req, res) => {
     }
 }
 
-
+*/
 exports.uptdatePokemon = async(req,res) =>{
         try {
             const updt = await Pokemon.findByIdAndUpdate(req.params.id, req.body,{
