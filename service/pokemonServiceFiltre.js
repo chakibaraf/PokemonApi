@@ -3,7 +3,7 @@
 // Fonction pour créer un objet de requête en fonction des paramètres de requête
 const buildQuery = (queryParams) => {
     let query = {};
-   
+        message = "liste de tous les pokemons "
 
     if (queryParams.types) {
         query.types = queryParams.types;

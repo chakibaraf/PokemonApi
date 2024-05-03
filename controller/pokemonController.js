@@ -9,8 +9,9 @@ exports.getAllPokemon = async (req, res) => {
     try { 
 
         const {query , message} = pokemonService.buildQuery(req.query)
-        const allPokemons = await Pokemon.find(query);
-        console.log(allPokemons)
+        const allPokemons = await Pokemon.find(query).limit(4);
+        console.log(allPokemons);
+      
 
         res.status(200).json({
             status: 'success',
